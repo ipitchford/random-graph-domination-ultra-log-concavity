@@ -1,0 +1,10 @@
+n=1, 1 labelled graphs, exact mean: 0 1
+n=2, 2 labelled graphs, exact mean: 0 1 1
+n=3, 8 labelled graphs, exact mean: 0 3/4 9/4 1
+n=4, 64 labelled graphs, exact mean: 0 1/2 27/8 7/2 1
+n=5, 1024 labelled graphs, exact mean: 0 5/16 135/32 245/32 75/16 1
+n=2, 0 exact tail comparisons across three-set families
+n=3, 2 exact tail comparisons across three-set families
+n=4, 128 exact tail comparisons across three-set families
+n=5, 3270 exact tail comparisons across three-set families
+n=6, 56000 exact tail comparisons across three-set families

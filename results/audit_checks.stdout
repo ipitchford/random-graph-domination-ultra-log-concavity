@@ -1,0 +1,12 @@
+n=2, labelled graphs=2, exact mean verified, failures of ultra-log-concavity=0
+n=3, labelled graphs=8, exact mean verified, failures of ultra-log-concavity=0
+n=4, labelled graphs=64, exact mean verified, failures of ultra-log-concavity=0
+n=5, labelled graphs=1024, exact mean verified, failures of ultra-log-concavity=5
+n=6, labelled graphs=32768, exact mean verified, failures of ultra-log-concavity=636
+1904 exact hypergeometric curvature identities verified
+theta 0 n=2^128 p(log n)^2 0.0084488436 ULC threshold 1.005137073 ordinary threshold 1.00513709
+theta 0 n=2^512 p(log n)^2 0.0025851786 ULC threshold 1.002223975 ordinary threshold 1.002223975
+theta 0 n=2^2048 p(log n)^2 0.00068644213 ULC threshold 1.000655909 ordinary threshold 1.000655909
+theta 1 n=2^128 p(log n)^2 0.79943888 ULC threshold 0.637228598 ordinary threshold 0.6372295104
+theta 1 n=2^512 p(log n)^2 0.93395014 ULC threshold 0.8448678391 ordinary threshold 0.844867858
+theta 1 n=2^2048 p(log n)^2 0.97955852 ULC threshold 0.9469516809 ordinary threshold 0.9469516812

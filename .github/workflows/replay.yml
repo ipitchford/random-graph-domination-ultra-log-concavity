@@ -1,0 +1,60 @@
+# SPDX-License-Identifier: MIT
+name: Replay
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+jobs:
+  replay:
+    name: Manifest; all five scripts under python -O; comparison under the declared policy; negative controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check MANIFEST.sha256
+        run: sha256sum -c MANIFEST.sha256
+      - name: Install pinned packages
+        run: python3 -m pip install -r requirements.txt
+      - name: Run the scripts in copies of the package (cwd = package root)
+        run: |
+          python3 -I -c 'import sys, mpmath, numpy; print(sys.version, mpmath.__version__, numpy.__version__)'
+          for d in runO run neg1 neg2; do mkdir -p "$RUNNER_TEMP/$d/results"; cp -R code requirements.txt "$RUNNER_TEMP/$d/"; done
+          cd "$RUNNER_TEMP/runO"
+          python3 -I -B -O code/verify.py > results/verify.stdout
+          python3 -I -B -O code/audit_checks.py > results/audit_checks.stdout
+          python3 -I -B -O code/check_tuning.py > results/check_tuning.stdout
+          python3 -I -B -O code/finite_n.py --output results/finite-n.json > results/finite-n.stdout
+          python3 -I -B -O code/natural_density.py --output results/natural-density.json > results/natural-density.stdout
+          cd "$RUNNER_TEMP/run"
+          python3 -I -B code/verify.py > results/verify.stdout
+          python3 -I -B code/check_tuning.py > results/check_tuning.stdout
+      - name: Compare with the recorded outputs
+        # Declared policy (also in README.md, ENVIRONMENT.txt and REPLAY_RECEIPT.md): verify.stdout, finite-n.stdout and
+        # finite-n.json identical byte for byte; the files with printed mpmath values compared number by number, text and
+        # integers identical, decimal numbers within 1e-6 relative.
+        run: |
+          for f in verify.stdout finite-n.stdout finite-n.json; do cmp "$RUNNER_TEMP/runO/results/$f" "results/$f"; done
+          cmp "$RUNNER_TEMP/run/results/verify.stdout" results/verify.stdout
+          for f in audit_checks.stdout check_tuning.stdout natural-density.stdout natural-density.json; do python3 -I .github/ci/compare_tokens.py "$RUNNER_TEMP/runO/results/$f" "results/$f"; done
+          python3 -I .github/ci/compare_tokens.py "$RUNNER_TEMP/run/results/check_tuning.stdout" results/check_tuning.stdout
+          echo "outputs match under the declared policy"
+      - name: Negative controls under -O (tail bound made too strong; negative tuning tolerance)
+        run: |
+          cd "$RUNNER_TEMP/neg1"
+          sed -i 's/ - 2 \* rho\*\*(k - 1))/ + 1)/' code/verify.py
+          grep -q 'd - 1), n \* (n - 1)) + 1)' code/verify.py
+          if python3 -I -B -O code/verify.py > out.txt 2>&1; then echo "too-strong tail bound not detected"; exit 1; fi
+          grep -q 'CHECK FAILED: verify.py check 2' out.txt
+          cd "$RUNNER_TEMP/neg2"
+          sed -i "s/mp.mpf('1e-30')/mp.mpf('-1')/" code/check_tuning.py
+          grep -q "mp.mpf('-1')" code/check_tuning.py
+          if python3 -I -B -O code/check_tuning.py > out.txt 2>&1; then echo "negative tolerance not detected"; exit 1; fi
+          grep -q 'CHECK FAILED: check_tuning.py check 1' out.txt
+          echo "negative controls detected"
+      - name: Working tree unchanged
+        run: test -z "$(git status --porcelain)"

@@ -1,0 +1,18 @@
+n= 2 exhaustive graphs=     2 LC-fail=0 ULC-fail=0 LC index-gamma={} ULC index-gamma={}
+n= 3 exhaustive graphs=     8 LC-fail=0 ULC-fail=0 LC index-gamma={} ULC index-gamma={}
+n= 4 exhaustive graphs=    64 LC-fail=0 ULC-fail=0 LC index-gamma={} ULC index-gamma={}
+n= 5 exhaustive graphs=  1024 LC-fail=0 ULC-fail=5 LC index-gamma={} ULC index-gamma={2: 5}
+n= 6 exhaustive graphs= 32768 LC-fail=0 ULC-fail=636 LC index-gamma={} ULC index-gamma={1: 540, 2: 90, 3: 6}
+n= 7 sample     graphs= 20000 LC-fail=0 ULC-fail=191 LC index-gamma={} ULC index-gamma={1: 173, 2: 11, 3: 7}
+n= 8 sample     graphs= 20000 LC-fail=0 ULC-fail=118 LC index-gamma={} ULC index-gamma={1: 107, 2: 10, 3: 1}
+n= 9 sample     graphs= 20000 LC-fail=0 ULC-fail=102 LC index-gamma={} ULC index-gamma={1: 93, 2: 8, 3: 1}
+n=10 sample     graphs= 20000 LC-fail=0 ULC-fail=64 LC index-gamma={} ULC index-gamma={1: 58, 2: 6}
+n=11 sample     graphs= 20000 LC-fail=0 ULC-fail=59 LC index-gamma={} ULC index-gamma={1: 55, 2: 4}
+n=12 sample     graphs= 20000 LC-fail=0 ULC-fail=40 LC index-gamma={} ULC index-gamma={1: 38, 2: 2}
+n=13 sample     graphs= 20000 LC-fail=0 ULC-fail=25 LC index-gamma={} ULC index-gamma={1: 24, 2: 1}
+n=14 sample     graphs= 20000 LC-fail=1 ULC-fail=16 LC index-gamma={1: 1} ULC index-gamma={1: 16}
+n=15 sample     graphs= 20000 LC-fail=0 ULC-fail=14 LC index-gamma={} ULC index-gamma={1: 14}
+n=16 sample     graphs= 20000 LC-fail=1 ULC-fail=13 LC index-gamma={1: 1} ULC index-gamma={1: 12, 2: 1}
+n=17 sample     graphs= 20000 LC-fail=0 ULC-fail=10 LC index-gamma={} ULC index-gamma={1: 10}
+n=18 sample     graphs= 20000 LC-fail=0 ULC-fail=11 LC index-gamma={} ULC index-gamma={1: 11}
+PASS finite-n table

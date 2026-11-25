@@ -1,0 +1,224 @@
+{
+ "schemaVersion": "1.0",
+ "provenance": "Compiled 25 November 2026 for 0.1.0-candidate from the dated searches of the internal AI-assisted review (24 November 2026), the source retrieval and reading record, the corpus overlap check, refs.bib, REVIEW_SUMMARY.md and the paper's own positioning (Sections 1 and 8). It records scrutiny performed, not historical priority.",
+ "contributionMap": [
+  {
+   "claim": "In G(n,p) with p <= 1 - eps and p(log n)^2 -> infinity, whp the domination polynomial is ultra-log-concave (hence log-concave), strictly exactly between gamma and n - delta; at p = 1/2 almost all labelled and unlabelled graphs, answering Cameron's question",
+   "unit": "statement",
+   "paperLocation": "abstract; Theorem 2.1; Corollary 2.2",
+   "searches": [
+    {
+     "date": "2026-11-24",
+     "corpus": "web search (two queries), Semantic Scholar 2019-2026, abstracts of arXiv:2605.02193 and arXiv:2102.00268, the citing works of Beaton-Brown and Oboudi as listed by the cited sources, and the Evidence Press corpus (site papers/ and the batch corpus list)",
+     "query": "log-concave domination polynomial random graph; ultra-log-concave dominating sets Erdos-Renyi; almost all graphs log-concave domination polynomial; Cameron conjecture domination polynomial log-concave"
+    },
+    {
+     "date": "2026-11-24",
+     "corpus": "the cited works, obtained and read: Cameron thesis (Section 6.5), Beaton-Brown (arXiv:2012.11813), Oboudi 2021, Alikhani-Peng (arXiv:0905.2251), Du-Heilman-Panova (arXiv:2605.02193), Omar (arXiv:2601.14494), Galvin-Zhang (arXiv:2408.12731), Wieland-Godbole, Glebov-Liebenau-Szabo (arXiv:1209.3115), Bohman-Warnke-Zhu (arXiv:2401.10486), Mitsche-Perez-Gimenez-Pralat (arXiv:1502.00169), Pralat 2010, Ross 2011, Daly (arXiv:1504.06493)",
+     "query": "Cameron Section 6.5 nine-vertex example and hypothesis; Beaton-Brown Theorems 3.2-3.3; Oboudi Theorems 2.1-2.2; Du-Heilman-Panova Section 1.1; MPP Proposition 8 and condition (6); Pralat Theorem 2.1; Ross Theorem 4.14; Daly Theorem 4.2; Galvin-Zhang Conjecture 1.8"
+    }
+   ],
+   "closestPriorWork": "Beaton-Brown Theorems 3.2-3.3 (unimodality whp for fixed p); Oboudi Theorems 2.1-2.2 (log-concavity of the average polynomial); Du-Heilman-Panova Section 1.1 (question for random graphs)",
+   "verdict": "new-in-bounded-search",
+   "verdictNote": "no prior statement or proof of log-concavity or ultra-log-concavity for the domination polynomial of a single random graph found"
+  },
+  {
+   "claim": "Tuned densities with p(log n)^2 -> theta make log-concavity and ultra-log-concavity fail with limiting probability given by a Poisson law; tunings separating the two properties",
+   "unit": "statement",
+   "paperLocation": "Theorem 2.3",
+   "searches": [
+    {
+     "date": "2026-11-24",
+     "corpus": "web search (two queries), Semantic Scholar 2019-2026, abstracts of arXiv:2605.02193 and arXiv:2102.00268, the citing works of Beaton-Brown and Oboudi as listed by the cited sources, and the Evidence Press corpus (site papers/ and the batch corpus list)",
+     "query": "log-concave domination polynomial random graph; ultra-log-concave dominating sets Erdos-Renyi; almost all graphs log-concave domination polynomial; Cameron conjecture domination polynomial log-concave"
+    },
+    {
+     "date": "2026-11-24",
+     "corpus": "the cited works, obtained and read: Cameron thesis (Section 6.5), Beaton-Brown (arXiv:2012.11813), Oboudi 2021, Alikhani-Peng (arXiv:0905.2251), Du-Heilman-Panova (arXiv:2605.02193), Omar (arXiv:2601.14494), Galvin-Zhang (arXiv:2408.12731), Wieland-Godbole, Glebov-Liebenau-Szabo (arXiv:1209.3115), Bohman-Warnke-Zhu (arXiv:2401.10486), Mitsche-Perez-Gimenez-Pralat (arXiv:1502.00169), Pralat 2010, Ross 2011, Daly (arXiv:1504.06493)",
+     "query": "Cameron Section 6.5 nine-vertex example and hypothesis; Beaton-Brown Theorems 3.2-3.3; Oboudi Theorems 2.1-2.2; Du-Heilman-Panova Section 1.1; MPP Proposition 8 and condition (6); Pralat Theorem 2.1; Ross Theorem 4.14; Daly Theorem 4.2; Galvin-Zhang Conjecture 1.8"
+    }
+   ],
+   "closestPriorWork": "Poisson laws for dominating sets of fixed size as p -> 1 (Pralat Theorem 2.1)",
+   "verdict": "new-in-bounded-search",
+   "verdictNote": "boundary law not found in the searched sources"
+  },
+  {
+   "claim": "For p = theta/(log n)^2 the probability of ultra-log-concavity tends to one along a density-one set of n and has liminf at most exp(-e^-theta)",
+   "unit": "statement",
+   "paperLocation": "Theorem 2.5; Proposition 6.1",
+   "searches": [
+    {
+     "date": "2026-11-24",
+     "corpus": "web search (two queries), Semantic Scholar 2019-2026, abstracts of arXiv:2605.02193 and arXiv:2102.00268, the citing works of Beaton-Brown and Oboudi as listed by the cited sources, and the Evidence Press corpus (site papers/ and the batch corpus list)",
+     "query": "log-concave domination polynomial random graph; ultra-log-concave dominating sets Erdos-Renyi; almost all graphs log-concave domination polynomial; Cameron conjecture domination polynomial log-concave"
+    },
+    {
+     "date": "2026-11-24",
+     "corpus": "the cited works, obtained and read: Cameron thesis (Section 6.5), Beaton-Brown (arXiv:2012.11813), Oboudi 2021, Alikhani-Peng (arXiv:0905.2251), Du-Heilman-Panova (arXiv:2605.02193), Omar (arXiv:2601.14494), Galvin-Zhang (arXiv:2408.12731), Wieland-Godbole, Glebov-Liebenau-Szabo (arXiv:1209.3115), Bohman-Warnke-Zhu (arXiv:2401.10486), Mitsche-Perez-Gimenez-Pralat (arXiv:1502.00169), Pralat 2010, Ross 2011, Daly (arXiv:1504.06493)",
+     "query": "Cameron Section 6.5 nine-vertex example and hypothesis; Beaton-Brown Theorems 3.2-3.3; Oboudi Theorems 2.1-2.2; Du-Heilman-Panova Section 1.1; MPP Proposition 8 and condition (6); Pralat Theorem 2.1; Ross Theorem 4.14; Daly Theorem 4.2; Galvin-Zhang Conjecture 1.8"
+    }
+   ],
+   "closestPriorWork": "none found",
+   "verdict": "new-in-bounded-search",
+   "verdictNote": "not found"
+  },
+  {
+   "claim": "Second-moment bound with an e^{-Omega(L^2)}/mu_k term and Poisson limit by monotone coupling; deterministic second-difference inequality for unions of sets; binomial convex order",
+   "unit": "method",
+   "paperLocation": "Lemma 3.1, Corollary 3.2, Lemma 5.1, Corollary 2.6",
+   "searches": [
+    {
+     "date": "2026-11-24",
+     "corpus": "web search (two queries), Semantic Scholar 2019-2026, abstracts of arXiv:2605.02193 and arXiv:2102.00268, the citing works of Beaton-Brown and Oboudi as listed by the cited sources, and the Evidence Press corpus (site papers/ and the batch corpus list)",
+     "query": "log-concave domination polynomial random graph; ultra-log-concave dominating sets Erdos-Renyi; almost all graphs log-concave domination polynomial; Cameron conjecture domination polynomial log-concave"
+    },
+    {
+     "date": "2026-11-24",
+     "corpus": "the cited works, obtained and read: Cameron thesis (Section 6.5), Beaton-Brown (arXiv:2012.11813), Oboudi 2021, Alikhani-Peng (arXiv:0905.2251), Du-Heilman-Panova (arXiv:2605.02193), Omar (arXiv:2601.14494), Galvin-Zhang (arXiv:2408.12731), Wieland-Godbole, Glebov-Liebenau-Szabo (arXiv:1209.3115), Bohman-Warnke-Zhu (arXiv:2401.10486), Mitsche-Perez-Gimenez-Pralat (arXiv:1502.00169), Pralat 2010, Ross 2011, Daly (arXiv:1504.06493)",
+     "query": "Cameron Section 6.5 nine-vertex example and hypothesis; Beaton-Brown Theorems 3.2-3.3; Oboudi Theorems 2.1-2.2; Du-Heilman-Panova Section 1.1; MPP Proposition 8 and condition (6); Pralat Theorem 2.1; Ross Theorem 4.14; Daly Theorem 4.2; Galvin-Zhang Conjecture 1.8"
+    }
+   ],
+   "closestPriorWork": "large-mean second-moment bounds (Wieland-Godbole, Glebov-Liebenau-Szabo, Mitsche-Perez-Gimenez-Pralat Proposition 8); Ross Theorem 4.14; Daly Theorem 4.2",
+   "verdict": "partially-known-cited",
+   "verdictNote": "standard tools credited in the paper; the bounded-mean term and the tail inequality were not found in the searched sources"
+  }
+ ],
+ "sourcesReadInFull": [
+  {
+   "citation": "Cameron, B. R. K. (2019), On the Roots of Independence Polynomials, PhD thesis, Dalhousie University",
+   "usedFor": "the question and the nine-vertex example",
+   "readWhat": "Section 6.5",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://dalspace.library.dal.ca/server/api/core/bitstreams/c903bf10-142c-4ffe-965a-1927ad52197a/content"
+  },
+  {
+   "citation": "Beaton, I. and Brown, J. I. (2022), On the unimodality of domination polynomials, Graphs Combin. 38, 90",
+   "usedFor": "unimodality for fixed p; the nine-vertex graph",
+   "readWhat": "whole paper (arXiv:2012.11813)",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://doi.org/10.1007/s00373-022-02487-x"
+  },
+  {
+   "citation": "Oboudi, M. R. (2021), The average domination polynomial of graphs is unimodal, Discrete Math. Lett. 7, 86-89",
+   "usedFor": "average polynomial and its log-concavity",
+   "readWhat": "whole paper",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://doi.org/10.47443/dml.2021.0075"
+  },
+  {
+   "citation": "Du, A., Heilman, S. and Panova, G. (2026), Trees and graphs with non log-concave dominating set sequence via AI tools, arXiv:2605.02193",
+   "usedFor": "positioning; the question for random graphs",
+   "readWhat": "whole paper",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://arxiv.org/abs/2605.02193"
+  },
+  {
+   "citation": "Mitsche, D., Perez-Gimenez, X. and Pralat, P. (2016), The bondage number of random graphs, Electron. J. Combin. 23(2) P2.13",
+   "usedFor": "second-moment estimates (Proposition 8)",
+   "readWhat": "whole paper (arXiv:1502.00169)",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://doi.org/10.37236/5180"
+  },
+  {
+   "citation": "Pralat, P. (2010), When does a random graph have constant cop number?, Australas. J. Combin. 46, 285-296",
+   "usedFor": "Poisson law for fixed sizes as p -> 1",
+   "readWhat": "whole paper",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://ajc.maths.uq.edu.au/pdf/46/ajc_v46_p285.pdf"
+  },
+  {
+   "citation": "Ross, N. (2011), Fundamentals of Stein's method, Probab. Surv. 8, 210-293",
+   "usedFor": "monotone coupling bound (Theorem 4.14)",
+   "readWhat": "Sections 4.1-4.3",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://doi.org/10.1214/11-PS182"
+  },
+  {
+   "citation": "Daly, F. (2016), Negative dependence and stochastic orderings, ESAIM Probab. Stat. 20, 45-65",
+   "usedFor": "ultra-log-concavity and convex order (Theorem 4.2)",
+   "readWhat": "whole paper (arXiv:1504.06493)",
+   "date": "2026-11-24",
+   "evidenceLocator": "https://doi.org/10.1051/ps/2016002"
+  }
+ ],
+ "limitationTriage": [
+  {
+   "limitation": "Dense graphs (p -> 1) are not covered",
+   "closingQuestion": "Does Theorem 2.1 hold for every p with p(log n)^2 -> infinity?",
+   "triedOrSearched": "attempted in the revision round; the concentration estimate and the overlap condition rho < 1 need q >= eps",
+   "estimatedCost": "weeks",
+   "cheap": false,
+   "decision": "OPEN",
+   "reasonOpen": "Section 8, open problem 1",
+   "whyNotClosedNow": "several separate regimes would be needed"
+  },
+  {
+   "limitation": "Sparser densities (p(log n)^2 -> 0) are not covered",
+   "closingQuestion": "What happens for p = n^-c?",
+   "triedOrSearched": "not attempted beyond the discussion in Section 8",
+   "estimatedCost": "weeks",
+   "cheap": false,
+   "decision": "OPEN",
+   "reasonOpen": "Section 8, open problem 2",
+   "whyNotClosedNow": "needs finer fluctuation estimates"
+  },
+  {
+   "limitation": "No explicit n; convergence at the boundary scale is slow",
+   "closingQuestion": "Could the finite computations be mistaken for evidence of the limit laws?",
+   "triedOrSearched": "Section 8 states the slow convergence with numbers (curvature 0.58 at log n = 100) and that the computations are illustrations",
+   "estimatedCost": "hours",
+   "cheap": true,
+   "decision": "CLOSED",
+   "reasonOpen": "",
+   "whyNotClosedNow": ""
+  },
+  {
+   "limitation": "Unlabelled graphs were not covered in the first draft",
+   "closingQuestion": "Does the result transfer to isomorphism classes?",
+   "triedOrSearched": "Corollary 2.2 proved with a self-contained count",
+   "estimatedCost": "hours",
+   "cheap": true,
+   "decision": "CLOSED",
+   "reasonOpen": "",
+   "whyNotClosedNow": ""
+  },
+  {
+   "limitation": "Certificate scripts relied on assert in the source bundle",
+   "closingQuestion": "Do the checks fail correctly under python -O?",
+   "triedOrSearched": "explicit check() calls; two negative controls exit 1 under -O",
+   "estimatedCost": "hours",
+   "cheap": true,
+   "decision": "CLOSED",
+   "reasonOpen": "",
+   "whyNotClosedNow": ""
+  },
+  {
+   "limitation": "Novelty rests on searches of limited scope",
+   "closingQuestion": "Would further indexes change attribution?",
+   "triedOrSearched": "web and Semantic Scholar searches; cited sources read",
+   "estimatedCost": "subscription indexes",
+   "cheap": false,
+   "decision": "OPEN",
+   "reasonOpen": "subscription indexes were outside the searched corpus",
+   "whyNotClosedNow": "recorded here; the paper positions its results against the sources read"
+  }
+ ],
+ "extensionScout": {
+  "by": "the internal review panel, the re-reviewer and the lead",
+  "date": "2026-11-24",
+  "proposals": [
+   "finite-n table of failures",
+   "slow-convergence illustration",
+   "density-one statement for natural densities",
+   "unlabelled graphs",
+   "remove the condition p <= 1 - eps"
+  ],
+  "actions": [
+   "done: Table 1",
+   "done: Section 8",
+   "done: Theorem 2.5 (with liminf bound)",
+   "done: Corollary 2.2",
+   "not done: open problem 1"
+  ]
+ }
+}

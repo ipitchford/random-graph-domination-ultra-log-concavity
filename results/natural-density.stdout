@@ -1,0 +1,17 @@
+theta: 1
+L0: 60
+dF_s_dL_at_L0: -1.90863e+7
+jump_F_s_plus_1_minus_F_s_at_L0: 2211.23
+jump_over_L_squared: 0.614231
+period_in_L: 0.000115855
+grid_points: 1501
+index_increments_on_grid: 3
+s_first: 158853
+s_last: 158856
+all_steps_decrease_between_increments: True
+points_with_abs_F_s_below_1: 0
+fraction_with_abs_F_s_below_1: 0.0
+two_over_jump: 0.000904473
+curvature_C_s_min: 0.600732
+curvature_C_s_max: 0.6009
+PASS natural-density illustration

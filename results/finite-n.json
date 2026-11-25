@@ -1,0 +1,205 @@
+{
+ "seed": 20261124,
+ "samples_per_n_from_7": 20000,
+ "edge_probability": "1/2",
+ "rows": [
+  {
+   "n": 2,
+   "mode": "exhaustive",
+   "graphs": 2,
+   "lc_failures": 0,
+   "ulc_failures": 0,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {}
+  },
+  {
+   "n": 3,
+   "mode": "exhaustive",
+   "graphs": 8,
+   "lc_failures": 0,
+   "ulc_failures": 0,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {}
+  },
+  {
+   "n": 4,
+   "mode": "exhaustive",
+   "graphs": 64,
+   "lc_failures": 0,
+   "ulc_failures": 0,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {}
+  },
+  {
+   "n": 5,
+   "mode": "exhaustive",
+   "graphs": 1024,
+   "lc_failures": 0,
+   "ulc_failures": 5,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "2": 5
+   }
+  },
+  {
+   "n": 6,
+   "mode": "exhaustive",
+   "graphs": 32768,
+   "lc_failures": 0,
+   "ulc_failures": 636,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 540,
+    "2": 90,
+    "3": 6
+   }
+  },
+  {
+   "n": 7,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 191,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 173,
+    "2": 11,
+    "3": 7
+   }
+  },
+  {
+   "n": 8,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 118,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 107,
+    "2": 10,
+    "3": 1
+   }
+  },
+  {
+   "n": 9,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 102,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 93,
+    "2": 8,
+    "3": 1
+   }
+  },
+  {
+   "n": 10,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 64,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 58,
+    "2": 6
+   }
+  },
+  {
+   "n": 11,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 59,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 55,
+    "2": 4
+   }
+  },
+  {
+   "n": 12,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 40,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 38,
+    "2": 2
+   }
+  },
+  {
+   "n": 13,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 25,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 24,
+    "2": 1
+   }
+  },
+  {
+   "n": 14,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 1,
+   "ulc_failures": 16,
+   "lc_failing_index_minus_gamma": {
+    "1": 1
+   },
+   "ulc_failing_index_minus_gamma": {
+    "1": 16
+   }
+  },
+  {
+   "n": 15,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 14,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 14
+   }
+  },
+  {
+   "n": 16,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 1,
+   "ulc_failures": 13,
+   "lc_failing_index_minus_gamma": {
+    "1": 1
+   },
+   "ulc_failing_index_minus_gamma": {
+    "1": 12,
+    "2": 1
+   }
+  },
+  {
+   "n": 17,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 10,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 10
+   }
+  },
+  {
+   "n": 18,
+   "mode": "sample",
+   "graphs": 20000,
+   "lc_failures": 0,
+   "ulc_failures": 11,
+   "lc_failing_index_minus_gamma": {},
+   "ulc_failing_index_minus_gamma": {
+    "1": 11
+   }
+  }
+ ]
+}

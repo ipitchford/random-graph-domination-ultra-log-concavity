@@ -1,0 +1,115 @@
+{
+ "title": "When is the domination polynomial of a random graph ultra-log-concave?",
+ "upload_type": "publication",
+ "publication_type": "preprint",
+ "description": "<p><strong>Unrefereed research candidate.</strong> A set of vertices of a graph is dominating when every vertex is in the set or adjacent to it. Counting dominating sets by size gives the coefficients of the domination polynomial. A sequence is log-concave if each term squared is at least the product of its neighbours; it then rises to a single peak and falls. Cameron (2019) checked all graphs with at most nine vertices, found exactly one whose domination polynomial is not log-concave (it fails because 7&times;7 &lt; 1&times;50), and asked whether almost all graphs have a log-concave domination polynomial.</p><p><strong>Results.</strong> (1) In the Erd&#337;s&ndash;R&eacute;nyi graph G(n,p) with p &le; 1&minus;&epsilon; and p(log n)<sup>2</sup> &rarr; &infin;, with probability tending to one the proportion of k-sets that dominate is log-concave in k over the whole range (ultra-log-concavity), which implies log-concavity of the counts; the inequalities are strict exactly between the domination number and n minus the minimum degree. At p = 1/2 this shows that almost all graphs, labelled or unlabelled, have an ultra-log-concave and hence log-concave domination polynomial, answering Cameron's question. (2) The scale p(log n)<sup>2</sup> &rarr; &infin; is the right one for a guarantee valid along every density sequence: for each finite limit &theta; there are explicitly tuned densities at which both properties fail with an explicit positive limiting probability, given by a Poisson law for the number of smallest dominating sets (at &theta; = 0 and &lambda; = log 2 the limit is 1/2). (3) For the natural density p = &theta;/(log n)<sup>2</sup> the probability of log-concavity has no limit: it tends to one along a set of n of density one but has liminf at most exp(&minus;e<sup>&minus;&theta;</sup>). (4) A binomial convex-order bound for the size of a weighted random dominating set follows.</p><p><strong>Mechanism.</strong> The first nonzero count fluctuates like a Poisson variable, the next counts are huge and concentrated, and the curvature of the mean profile at the second nonzero coefficient is of order p(log n)<sup>2</sup>. In the upper range a deterministic second-difference inequality for overlapping neighbourhood complements takes over.</p><p><strong>Limits.</strong> The results are asymptotic with no explicit n. Very dense graphs (p &rarr; 1) and sparser densities (p(log n)<sup>2</sup> &rarr; 0) are not covered. Convergence at the boundary scale is slow. The finite computations (exhaustive for n &le; 6, 20,000 seeded samples of G(n,1/2) for 7 &le; n &le; 18) are illustrations, not proofs.</p><p><strong>Contents.</strong> The paper (LaTeX source and PDF) and five Python scripts with their recorded outputs: verify.py and audit_checks.py (exact checks of the mean formula, the hypergeometric identity and the tail inequality, and boundary thresholds), check_tuning.py (the tuned densities), finite_n.py (the table of failures for n &le; 18) and natural_density.py (the slow-convergence illustration). Each script exits with an error on any failed check, also under python -O. Also included: the bibliography, a machine-readable index, a research-gate record, a review summary, a replay receipt and SHA-256 sums.</p><p><strong>Assurance.</strong> Written proofs with finite computer checks. Internal AI-assisted review only: a combined five-role Claude review panel, one revision round with extensions, a verification re-review with a proof audit of every new or rewritten proof, and a clean replay with negative controls. No Astra/Codex review took place. This is not peer review, independent reproduction or formal verification. Creator: Anonymous. Text CC0-1.0; code MIT.</p>",
+ "creators": [
+  {
+   "name": "Anonymous"
+  }
+ ],
+ "access_right": "open",
+ "license": "cc-zero",
+ "version": "0.1.0-candidate",
+ "publication_date": "2026-11-25",
+ "keywords": [
+  "domination polynomial",
+  "dominating sets",
+  "random graphs",
+  "Erdős–Rényi graph",
+  "log-concavity",
+  "ultra-log-concavity",
+  "Poisson approximation",
+  "unimodality",
+  "graph polynomials",
+  "convex order"
+ ],
+ "notes": "Code (*.py and the CI workflow) is MIT; prose, manuscript, recorded outputs and records are CC0-1.0.",
+ "related_identifiers": [
+  {
+   "identifier": "https://github.com/ipitchford/random-graph-domination-ultra-log-concavity/tree/v0.1.0-candidate",
+   "relation": "isSupplementTo",
+   "scheme": "url"
+  },
+  {
+   "identifier": "https://evidencepress.org/releases/random-graph-domination-ultra-log-concavity/",
+   "relation": "isDocumentedBy",
+   "scheme": "url"
+  },
+  {
+   "identifier": "10.5281/zenodo.24511988",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.1007/s00373-022-02487-x",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.1051/ps/2016002",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.1137/12090054x",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.37236/5180",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.47443/dml.2021.0075",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.1214/11-ps182",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "10.37236/1581",
+   "relation": "references",
+   "scheme": "doi"
+  },
+  {
+   "identifier": "arXiv:0905.2251",
+   "relation": "references",
+   "scheme": "arxiv"
+  },
+  {
+   "identifier": "arXiv:2401.10486",
+   "relation": "references",
+   "scheme": "arxiv"
+  },
+  {
+   "identifier": "arXiv:2605.02193",
+   "relation": "references",
+   "scheme": "arxiv"
+  },
+  {
+   "identifier": "arXiv:2408.12731",
+   "relation": "references",
+   "scheme": "arxiv"
+  },
+  {
+   "identifier": "arXiv:2601.14494",
+   "relation": "references",
+   "scheme": "arxiv"
+  },
+  {
+   "identifier": "https://dalspace.library.dal.ca/server/api/core/bitstreams/c903bf10-142c-4ffe-965a-1927ad52197a/content",
+   "relation": "references",
+   "scheme": "url"
+  },
+  {
+   "identifier": "https://ajc.maths.uq.edu.au/pdf/46/ajc_v46_p285.pdf",
+   "relation": "references",
+   "scheme": "url"
+  }
+ ]
+}

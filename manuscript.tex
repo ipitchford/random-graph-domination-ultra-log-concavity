@@ -1,0 +1,441 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{xcolor,booktabs}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!55!black]{hyperref}
+\hypersetup{pdftitle={When is the domination polynomial of a random graph ultra-log-concave?},pdfauthor={Anonymous}}
+\usepackage{enumitem}
+\setlist{nosep}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\E}{\mathbb E}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Pois}{\operatorname{Pois}}
+\title{When is the domination polynomial of a random graph\protect\\ ultra-log-concave?}
+\author{Anonymous\\[3pt]{\small DOI \href{https://doi.org/10.5281/zenodo.24540957}{10.5281/zenodo.24540957}}}
+\date{24 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A set of vertices of a graph is dominating when every vertex is in the set or adjacent to it. Counting dominating sets by size gives the coefficients of the domination polynomial. Cameron asked in 2019 whether almost all graphs have a log-concave domination polynomial; the only small exception he found has nine vertices. We answer the question in a stronger form. In the Erd\H{o}s--R\'enyi graph $G(n,p)$ with $p\le 1-\epsilon$ and $p(\log n)^2\to\infty$, with probability tending to one the proportion of $k$-sets that dominate is a log-concave function of $k$ over the whole range $1\le k<n$. This property, ultra-log-concavity, implies log-concavity of the counts, and we identify exactly where the inequalities are strict. Taking $p=1/2$ shows that almost all graphs, labelled or unlabelled, have an ultra-log-concave and hence log-concave domination polynomial, which settles Cameron's question. The scale $p(\log n)^2\to\infty$ is the right one for a guarantee valid for every density sequence: for each finite limit $\theta$ of $p(\log n)^2$ there are explicitly tuned densities at which log-concavity fails with an explicit positive probability, given by a Poisson law for the number of smallest dominating sets. For the natural sparse density $p=\theta/(\log n)^2$ the probability of log-concavity has no limit: it tends to one along a set of $n$ of density one, yet stays below a fixed bound smaller than one along infinitely many $n$. In all these results the failures occur at the comparison centred on the second nonzero coefficient, which is also where Cameron's nine-vertex example fails; exhaustive and sampled computations for $n\le 18$ show almost the same pattern. A binomial convex-order bound for the size of a random dominating set follows.
+\end{abstract}
+
+\section{Introduction}
+This section explains the question, why it matters, what was known, and what this paper adds, and ends with a guide to the remaining sections.
+
+\paragraph{The question.} Let $G$ be a simple graph on the vertex set $[n]=\{1,\dots,n\}$. A set $S\subseteq[n]$ is \emph{dominating} if every vertex outside $S$ has a neighbour in $S$. Write $X_k=X_k(G)$ for the number of dominating sets of size $k$. The \emph{domination polynomial} is $D_G(z)=\sum_{k=0}^nX_kz^k$. A sequence $(x_k)$ is \emph{log-concave} if $x_k^2\ge x_{k-1}x_{k+1}$ for every interior index $k$, and we call $D_G$ log-concave when its coefficient sequence is. Log-concavity of a positive sequence without internal zeros implies unimodality: the sequence rises to a peak and then falls. Alikhani and Peng conjectured that every domination polynomial is unimodal \cite{AP}. Cameron computed the domination polynomials of all graphs with at most nine vertices and found exactly one that is not log-concave: a nine-vertex graph with $D_G(z)=z^2+7z^3+50z^4+89z^5+\cdots$, which fails at the first possible index because $7^2<1\cdot 50$ \cite[Section~6.5, pp.~96--97]{Cameron}; Beaton and Brown also record this graph \cite[Section~1]{BB}. On this evidence he hypothesised that ``most graphs actually have a log-concave domination polynomial'' and proposed proving that almost all graphs do. This paper proves that statement, in a stronger form and over a range of edge densities, and determines where the guarantee stops.
+
+\paragraph{Why the question is natural.} The unimodality conjecture is now known to be false for some graphs: explicit connected graphs on 317,440 vertices have a domination polynomial with two peaks \cite{EPpeaks}. Beyond small cases the open questions therefore concern typical graphs and restricted classes. Log-concavity is the standard route to unimodality, and it is also the property with probabilistic meaning. Divide $X_k$ by the number of $k$-sets:
+\[
+ R_k=R_k(G)=X_k\Big/\binom nk ,
+\]
+the probability that a uniformly random $k$-set dominates $G$. Supersets of dominating sets dominate, so $R_k$ is nondecreasing in $k$ \cite[Section~3]{BB}. We say that $D_G$ is \emph{ultra-log-concave} (of order $n$) if
+\begin{equation}
+ R_k^2\ge R_{k-1}R_{k+1}\qquad(1\le k<n).
+ \label{eq:ulc}
+\end{equation}
+Since the binomial coefficients are strictly log-concave, ultra-log-concavity implies log-concavity of $(X_k)$. It is the stronger and more informative property: it says that the size of a random dominating set, under any of the natural weightings $z^{|S|}$, is at least as concentrated as a binomial variable with the same mean (Corollary~\ref{cor:convex}).
+
+\paragraph{What was known.} Beaton and Brown proved that a graph whose minimum degree is at least $2\log_2n$ has a unimodal domination polynomial with its peak at $\lceil n/2\rceil$, and deduced unimodality with high probability in $G(n,p)$ for each fixed $p$ \cite[Theorems~3.2--3.3]{BB}. Oboudi computed the average domination polynomial over all labelled graphs on $[n]$, $\sum_k\binom nk(1-2^{-k})^{n-k}z^k$, and proved that it is log-concave; his proof shows that the normalised averages $(1-2^{-k})^{n-k}$ are log-concave \cite[Theorems~2.1--2.2]{Oboudi}. Averaging, however, hides exactly the fluctuations that decide the question for a single graph. Du, Heilman and Panova constructed trees whose domination polynomials fail log-concavity at arbitrarily many indices, noted that the Beaton--Brown argument does not reach sparse random graphs, and asked whether random graphs exhibit log-concavity \cite{DHP}. Omar gave sufficient conditions for unimodality through overlaps of neighbourhood complements \cite{Omar}, and Galvin and Zhang conjectured ultra-log-concavity for powers of paths and cycles \cite[Conjecture~1.8]{GZ}. On the probabilistic side, the domination number of $G(n,p)$ is concentrated on two values over a wide range of $p$ \cite{WG,GLS,BWZ}; these papers bound the variance of the number of dominating sets just above the smallest size, where its mean is huge. Mitsche, P\'erez-Gim\'enez and Pra{\l}at sharpened such estimates under a growth condition on the mean \cite[Proposition~8]{MPP}, and Pra{\l}at proved a Poisson law for the number of dominating sets of a fixed size when $p\to1$ \cite[Theorem~2.1]{Pralat}. We found no earlier result on log-concavity of the domination polynomial of a single random graph.
+
+\paragraph{What is new.} Write $L=\log n$ (natural logarithm). Our results, stated precisely in Section~\ref{sec:results}, are as follows.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Typical graphs are ultra-log-concave} (Theorem~\ref{thm:main}). If $p\le 1-\epsilon$ and $pL^2\to\infty$, then with probability tending to one \eqref{eq:ulc} holds at every index, strictly exactly between the domination number $\gamma$ and $n-\delta$, where $\delta$ is the minimum degree. At $p=1/2$ this answers Cameron's question, for labelled graphs and also for graphs counted up to isomorphism (Corollary~\ref{cor:unlabelled}).
+\item \emph{The density scale cannot be lowered for a uniform guarantee} (Theorem~\ref{thm:obstruction}). For every $\theta\in[0,\infty)$ there are explicitly tuned densities with $pL^2\to\theta$ for which both log-concavity and ultra-log-concavity fail with an explicit positive limiting probability. Other tunings separate the two properties.
+\item \emph{Natural sparse densities have no limit} (Theorem~\ref{thm:natural}). For $p=\theta/L^2$ with fixed $\theta>0$, the probability of log-concavity tends to one along a set of $n$ of natural density one, but has $\liminf$ at most $e^{-e^{-\theta}}$.
+\end{enumerate}
+
+\paragraph{The mechanism.} Everything is decided by the first two nonzero coefficients. Let $s$ be the smallest size at which dominating sets are expected to exist. The count $X_s$ fluctuates like a Poisson variable when its mean is of order one, whereas the next counts are huge and concentrated. Inequality \eqref{eq:ulc} at index $s+1$ compares $X_s$ with a threshold equal to its mean times $e^{\kappa}$, where $\kappa$ is the curvature of $k\mapsto\log\E R_k$ at $s+1$. This curvature is of order $pL^2$. When $pL^2\to\infty$ the threshold is far above any plausible value of $X_s$; when $pL^2$ stays bounded, $X_s$ exceeds it with positive probability whenever its mean is of order one. Above the first few coefficients the curvature of the mean profile controls concentrated counts, and in the long upper range where almost every set dominates a deterministic second-difference inequality takes over (Lemma~\ref{lem:tail}). Cameron's nine-vertex graph fails at the same index $\gamma+1$, and so do almost all failures in our finite computations (Section~\ref{sec:finite}).
+
+\paragraph{Roadmap.} Section~\ref{sec:results} fixes notation and states the theorems. Section~\ref{sec:pairs} estimates the second moment of $X_k$ and derives a Poisson law. Section~\ref{sec:onset} locates the first nonzero coefficients and controls the logarithmic range of sizes. Section~\ref{sec:tail} proves the deterministic inequality for the upper range, completes the proof of Theorem~\ref{thm:main} and transfers it to unlabelled graphs. Section~\ref{sec:boundary} proves Theorems~\ref{thm:obstruction} and~\ref{thm:natural}. Section~\ref{sec:convex} proves the convex-order consequence. Section~\ref{sec:finite} reports finite computations, limitations and open problems.
+
+\section{Notation and statements}\label{sec:results}
+This section fixes notation and states the main results.
+
+The random graph $G(n,p)$ has vertex set $[n]$, and each of the $\binom n2$ possible edges is present independently with probability $p=p_n$. An event holds \emph{with high probability} (whp) if its probability tends to one as $n\to\infty$. We write $L=\log n$, $q=1-p$, $a=-\log q$, so $a\ge p$, and $a\sim p$ when $p\to0$. The closed neighbourhood of $v$ is $N[v]$; the domination number $\gamma(G)$ is the smallest size of a dominating set and $\delta(G)$ is the minimum degree. Since supersets of dominating sets dominate, $X_k>0$ exactly for $\gamma\le k\le n$. Asymptotic notation refers to $n\to\infty$; $f\asymp g$ means $f/g$ is bounded above and below by positive constants.
+
+\begin{theorem}[Ultra-log-concavity of typical graphs]\label{thm:main}
+Fix $\epsilon>0$ and let $p=p_n\le1-\epsilon$ with $pL^2\to\infty$. With high probability $D_G$ is ultra-log-concave: \eqref{eq:ulc} holds for every $1\le k<n$. On the same event \eqref{eq:ulc} is strict exactly for the indices $\gamma\le k\le n-\delta$ in $[1,n-1]$, and the counts satisfy $X_k^2>X_{k-1}X_{k+1}$ for every $\gamma<k<n$.
+\end{theorem}
+
+At $p=1/2$, $G(n,1/2)$ is the uniform distribution on the $2^{\binom n2}$ labelled graphs on $[n]$, so almost all labelled graphs have an ultra-log-concave, hence log-concave, domination polynomial. Cameron counted graphs up to isomorphism; the statement transfers.
+\begin{corollary}[Unlabelled graphs]\label{cor:unlabelled}
+The proportion of isomorphism classes of graphs on $n$ vertices whose domination polynomial is ultra-log-concave tends to one.
+\end{corollary}
+
+The next theorem shows that the hypothesis $pL^2\to\infty$ cannot be weakened to a bounded limit if the conclusion is to hold for every density sequence.
+
+\begin{theorem}[Tuned densities at a finite scale]\label{thm:obstruction}
+Fix $\theta\in[0,\infty)$ and $\lambda>0$. Let $r=\lfloor L^3/\theta\rfloor$ if $\theta>0$ and $r=\lfloor L^4\rfloor$ if $\theta=0$, and define $p=p_n$ by $\E X_r=\lambda$, that is, by \eqref{eq:tune} below. Then $pL^2\to\theta$ and
+\[
+ \lim_{n\to\infty}\PP(D_G\text{ is ultra-log-concave})
+ =\lim_{n\to\infty}\PP(D_G\text{ is log-concave})
+ =\begin{cases}
+ \PP\{\Pois(\lambda)<\lambda e^\theta\},&\theta>0,\\
+ \PP\{\Pois(\lambda)\le\lambda\},&\theta=0.
+ \end{cases}
+\]
+Moreover, if $m=\lambda e^\theta$ is a positive integer, there are densities $p_n$, again with $pL^2\to\theta$, for which
+\[
+ \lim_{n\to\infty}\PP\{D_G\text{ is log-concave but not ultra-log-concave}\}
+ = e^{-\lambda}\lambda^m/m!.
+\]
+\end{theorem}
+For example, at $\theta=0$ the choice $\lambda=\log 2$ gives limiting probability $\PP\{\Pois(\log2)=0\}=1/2$ for each property.
+
+\begin{remark}\label{rem:uniform}
+Theorem~\ref{thm:obstruction} concerns densities tuned to $n$ so that one count has bounded mean. It shows that $pL^2\to\infty$ is the right condition for a guarantee that holds along every density sequence. It does not say that a fixed formula for $p$ with $pL^2\to\theta$ fails for most $n$; Theorem~\ref{thm:natural} shows the opposite.
+\end{remark}
+
+\begin{theorem}[Natural sparse densities]\label{thm:natural}
+Fix $\theta\in(0,\infty)$ and let $p_n=\theta/L^2$.
+\begin{enumerate}[label=(\roman*)]
+\item There is a set $\mathcal N\subseteq\mathbb N$ of natural density one such that $\PP(D_G\text{ is ultra-log-concave})\to1$ as $n\to\infty$ through $\mathcal N$.
+\item For every $\lambda>0$ with $\lambda e^\theta\notin\mathbb Z$ there are infinitely many $n$ along which both $\PP(D_G\text{ is log-concave})$ and $\PP(D_G\text{ is ultra-log-concave})$ converge to $\PP\{\Pois(\lambda)<\lambda e^\theta\}$.
+\end{enumerate}
+Consequently both probabilities have $\limsup$ equal to one and $\liminf$ at most $e^{-e^{-\theta}}<1$.
+\end{theorem}
+The last bound comes from (ii) with $\lambda<e^{-\theta}$, where $\PP\{\Pois(\lambda)<\lambda e^\theta\}=\PP\{\Pois(\lambda)=0\}=e^{-\lambda}$.
+
+Finally, ultra-log-concavity has a standard probabilistic consequence. Give each dominating set $S$ the weight $z^{|S|}$ for a fixed $z>0$, and let $Y$ be the size of a dominating set drawn with probability proportional to its weight, given $G$. Write $\bar y=\E(Y\mid G)/n$.
+\begin{corollary}[Binomial convex order]\label{cor:convex}
+On the event of Theorem~\ref{thm:main}, for every $z>0$ and every convex $\Phi\colon[0,n]\to\mathbb R$,
+\[
+ \E[\Phi(Y)\mid G]\le\E\Phi(Z),\qquad Z\sim\operatorname{Bin}(n,\bar y).
+\]
+In particular $\Var(Y\mid G)\le n\bar y(1-\bar y)$.
+\end{corollary}
+
+\section{The second moment and a Poisson law}\label{sec:pairs}
+This section bounds the second moment of $X_k$ for sizes $k$ near $L/a$ and deduces a Poisson limit when the mean is bounded.
+
+A fixed $k$-set $A$ dominates exactly when each of the $n-k$ outside vertices has an edge into $A$; these events are independent, each of probability $1-q^k$. Hence
+\begin{equation}
+ b_k:=\E R_k=(1-q^k)^{n-k},\qquad \mu_k:=\E X_k=\binom nk b_k\qquad(k\ge1),
+ \label{eq:mean}
+\end{equation}
+and $b_0=0$. At $p=1/2$ these are Oboudi's averages \cite[Theorem~2.1]{Oboudi}.
+
+\emph{Standing assumptions for Sections~\ref{sec:pairs}--\ref{sec:tail}.} There are fixed $C,\epsilon>0$ with $L^{-C}\le p\le1-\epsilon$. Then $p\le a\le p/\epsilon$, so $a\asymp p$ and $a=O(1)$. We write $L^{O(1)}$ for a quantity bounded by a fixed power of $L$, and all implied constants depend only on $C$, $\epsilon$ and the constants named in each statement.
+
+\begin{lemma}\label{lem:pairs}
+Fix $0<c_0<C_0$. Let $c_0L/a\le k\le C_0L/a$, $u=q^k$ and $\tau=nu$, and suppose $\tau\le C_0kL$. Then, uniformly over such $k$,
+\begin{equation}
+ \frac{\E[X_k(X_k-1)]}{\mu_k^2}
+ \le 1+L^{O(1)}n^{-1/2}+\frac{e^{-\Omega(L^2)}}{\mu_k}.
+ \label{eq:pairs}
+\end{equation}
+Consequently $\Var X_k/\mu_k^2\le L^{O(1)}n^{-1/2}+2/\mu_k$; and if $\mu_k\ge e^{cL^2}$ for a fixed $c>0$, then $\Var(R_k)/b_k^2\le L^{O(1)}n^{-1/2}$.
+\end{lemma}
+For counts with mean at least $e^{cL^2}$, bounds of this kind are standard in the study of the domination number \cite{WG,GLS,MPP}. What we need is the form of the last term, which keeps the estimate useful when $\mu_k$ is bounded.
+\begin{proof}
+Note first that $k$ is polylogarithmic in $n$ and $ka\asymp L$. For distinct $k$-sets $A,B$ let $j=|A\cap B|$ and $\ell=k-j\ge1$. A vertex outside $A\cup B$ has no neighbour in $A$ with probability $u$, none in $B$ with probability $u$, and none in $A\cup B$ with probability $uq^\ell$. So it has a neighbour in each with probability $1-2u+uq^\ell$, independently over the $n-k-\ell$ outside vertices. Ignoring the requirements on vertices of $A\cup B$ gives an upper bound for the probability $Q_j$ that both sets dominate:
+\[
+ Q_j\le(1-2u+uq^\ell)^{n-k-\ell}.
+\]
+Write $1-2u+uq^\ell\le(1-u)^2\big(1+uq^\ell/(1-u)^2\big)$ and use $1+x\le e^x$ and $\ell\le k$:
+\begin{equation}
+ Q_j/b_k^2 \le (1-u)^{-2k}\exp\{\tau q^\ell/(1-u)^2\}.
+ \label{eq:joint}
+\end{equation}
+For two independent uniformly random $k$-sets let $J=|A\cap B|$. The left side of \eqref{eq:pairs} equals $\sum_{j<k}\PP(J=j)Q_j/b_k^2$. Since $\tau\le C_0kL$ is polylogarithmic, $u=\tau/n\le L^{O(1)}/n$. We split the sum into three ranges.
+
+\emph{Small overlaps, $j\le k/2$.} Then $\ell\ge k/2$ and $q^\ell\le u^{1/2}$, so the exponent in \eqref{eq:joint} is $O(\tau u^{1/2})=L^{O(1)}n^{-1/2}$, while $(1-u)^{-2k}=1+O(ku)$. This range contributes at most $1+L^{O(1)}n^{-1/2}$.
+
+\emph{Large overlaps with a small exponent.} For $j>k/2$, $\PP(J=j)\le\binom kj\frac{(k)_j}{(n)_j}\le(k^2/n)^j$, where $(x)_j$ is the falling factorial. Choose a constant $D_0$ with $C_0e^{-D_0}\le1/8$. If $\tau\le kL/8$ or $\ell\ge D_0/p$, then $\tau q^\ell\le kL/8$, because $q^\ell\le e^{-p\ell}$. For large $n$ the right side of \eqref{eq:joint} is then at most $e^{kL/6}\le e^{jL/3}$, and these terms contribute at most $\sum_{j>k/2}(k^2n^{-2/3})^j=e^{-\Omega(kL)}=e^{-\Omega(L^2)}$, which is absorbed in $L^{O(1)}n^{-1/2}$. Here $kL\ge c_0L^2/a=\Omega(L^2)$ because $a=O(1)$.
+
+\emph{Large overlaps with $1\le\ell<D_0/p$ and $\tau>kL/8$.} Since $k\ge c_0L/a\ge c_0\epsilon L/p$, we have $D_0/p<k/2$ for large $n$, so this range lies inside $j>k/2$. Here we divide the bound for $Q_j$ by a single factor $b_k$. Using $1-2u+uq^\ell=(1-u)\{1-u(1-q^\ell)/(1-u)\}$,
+\[
+ Q_j/b_k\le (1-u)^{-\ell}\exp\{-(n-k-\ell)u(1-q^\ell)/(1-u)\}.
+\]
+As $1-q^\ell\ge1-e^{-p\ell}\ge c_{D_0}p\ell$ for $p\ell\le D_0$, the exponent is at most $-c\,\tau p\ell\le -c'L^2\ell$, because $\tau>kL/8$ and $pk\asymp L$. A fixed $A$ has exactly $\binom k\ell\binom{n-k}\ell\le(kn)^\ell$ partners $B$ with $|A\cap B|=k-\ell$, so these pairs contribute to \eqref{eq:pairs} at most
+\[
+ \frac1{\mu_k}\binom k\ell\binom{n-k}\ell(1-u)^{-\ell}e^{-c'L^2\ell}
+ \le\frac{e^{-c'L^2\ell/2}}{\mu_k}
+\]
+for large $n$, since $\log(kn)=O(L)$. Summing over $\ell\ge1$ proves \eqref{eq:pairs}. Finally $\Var X_k=\E[X_k(X_k-1)]+\mu_k-\mu_k^2$, which gives the two variance statements.
+\end{proof}
+
+\begin{corollary}\label{cor:poisson}
+Under the hypotheses of Lemma~\ref{lem:pairs}, if $\mu_k\to\lambda\in(0,\infty)$ then $X_k$ converges in distribution to $\Pois(\lambda)$.
+\end{corollary}
+\begin{proof}
+Write $X_k=\sum_AI_A$ over $k$-sets $A$, where $I_A$ indicates that $A$ dominates. For each $A$ we couple $G$ with a graph $G^{A}$ whose law is that of $G$ conditioned on $I_A=1$, such that $G^{A}\supseteq G$. Keep every edge inside $A$ and inside its complement. For each outside vertex keep its set of edges into $A$ if that set is nonempty, and otherwise replace it by an independent sample conditioned to be nonempty. Because the edge sets into $A$ of different outside vertices are independent, $G^{A}$ has the required law, and it only adds edges. Domination is preserved by adding edges, so $I_B(G^{A})\ge I_B(G)$ for every $B$. This is the monotone coupling in Ross's Theorem~4.14 \cite{Ross}, which gives
+\[
+ d_{\rm TV}\big(\mathcal L(X_k),\Pois(\mu_k)\big)
+ \le \min\{1,\mu_k^{-1}\}\Big(\Var X_k-\mu_k+2\sum_A\PP(I_A=1)^2\Big)
+ =\min\{1,\mu_k^{-1}\}\big(\Var X_k-\mu_k+2\mu_kb_k\big).
+\]
+By \eqref{eq:pairs}, $\Var X_k-\mu_k=\E[X_k(X_k-1)]-\mu_k^2\le \mu_k^2L^{O(1)}n^{-1/2}+\mu_ke^{-\Omega(L^2)}\to0$, and $b_k=\mu_k/\binom nk\to0$. So the distance tends to zero.
+\end{proof}
+Pra{\l}at proved a Poisson law for dominating sets of fixed size when $p\to1$ \cite[Theorem~2.1]{Pralat}. Here the size grows with $n$, and the densities may tend to zero.
+
+\section{The first coefficients and the logarithmic range}\label{sec:onset}
+This section locates the first nonzero coefficients and proves \eqref{eq:ulc} for sizes up to $K=\lceil(1+\eta)L/a\rceil$, with $\eta=1/16$.
+
+For a function $H=H_n$ with $H\to\infty$ and $H\le L$, define the cutoff
+\[
+ s=s(H)=\min\{k:\mu_k\ge e^{-H}\}.
+\]
+In the proof of Theorem~\ref{thm:main} we take $H=\min\{L,(pL^2)^{3/4}\}$, so that $H\to\infty$ and $H=o(pL^2)$. In Section~\ref{sec:boundary} we take $H=\sqrt L$.
+
+\begin{lemma}\label{lem:cutoff}
+Under the standing assumptions, $s\sim L/a$ and
+\[
+ (q-o(1))L^2/a\le nq^s\le(1+o(1))L^2/a .
+\]
+Moreover $\mu_{s+1}\ge e^{cL^2}$ for a constant $c>0$, and with probability $1-O(e^{-H})-L^{O(1)}n^{-1/4}$: $X_k=0$ for all $k<s$, $X_s\le e^H\mu_s$, and
+\[
+ |R_k/b_k-1|\le n^{-1/8}\qquad(s+1\le k\le K+1).
+\]
+\end{lemma}
+\begin{proof}
+Both factors in \eqref{eq:mean} are nondecreasing in $k$ for $k\le n/2$, so $\mu_k$ is too. Fix $0<\xi<1/2$. At $k=\lfloor(1-\xi)L/a\rfloor$ we have $q^k\ge n^{-1+\xi}$ and $\mu_k\le n^ke^{-(n-k)q^k}<e^{-H}$ for large $n$, as $k$ is polylogarithmic. At $k=\lceil(1+\xi)L/a\rceil$ we have $nq^k\le n^{-\xi}$, so $b_k\to1$ and $\mu_k\to\infty$. Hence $s\sim L/a$.
+
+At $k\in\{s-1,s\}$ we have $\log\binom nk=(1+o(1))kL$ and $(n-k)\log(1-q^k)=-(1+o(1))nq^k$. The inequality $\mu_{s-1}<e^{-H}$ gives $nq^{s-1}\ge(1-o(1))(s-1)L$, hence $nq^s\ge(q-o(1))L^2/a$. The inequality $\mu_s\ge e^{-H}$ gives $nq^s\le(1+o(1))(sL+H)=(1+o(1))L^2/a$, since $H\le L=o(sL)$.
+
+For every $k$, $\log(b_{k+1}/b_k)=(n-k)\log\frac{1-q^{k+1}}{1-q^k}-\log(1-q^{k+1})$. The last term is nonnegative, and $\log\frac{1-qy}{1-y}=\int_{qy}^{y}\frac{dz}{1-z}\ge py$ with $y=q^k$. Therefore
+\begin{equation}
+ \log(b_{k+1}/b_k)\ge(n-k)pq^k .
+ \label{eq:jump}
+\end{equation}
+At $k=s$ the right side is $(1-o(1))p\,nq^s\ge c'L^2$, as $p\asymp a$. With $\mu_s\ge e^{-H}\ge e^{-L}$ and $\binom n{s+1}\ge\binom ns$ this gives $\mu_{s+1}\ge e^{cL^2}$.
+
+Markov's inequality gives $\PP(X_{s-1}\ge1)\le\mu_{s-1}<e^{-H}$; since every dominating set of size below $s-1$ extends to one of size $s-1$, $X_{s-1}=0$ forces $X_k=0$ for all $k<s$. Markov's inequality also gives $\PP(X_s>e^H\mu_s)\le e^{-H}$. For $s+1\le k\le K+1$ the means increase, so $\mu_k\ge e^{cL^2}$; also $c_0L/a\le k\le C_0L/a$ and $nq^k\le nq^s=O(kL)$. Lemma~\ref{lem:pairs} and Chebyshev's inequality give $\PP(|R_k/b_k-1|>n^{-1/8})\le L^{O(1)}n^{-1/4}$, and a union bound over the $O(L/a)$ indices finishes the proof.
+\end{proof}
+
+Next we bound the curvature of $k\mapsto\log b_k$. Put $f(x)=(n-x)\log(1-e^{-ax})$, so that $\log b_k=f(k)$. Differentiating twice,
+\begin{equation}
+ -f''(x)=\frac{2ae^{-ax}}{1-e^{-ax}}+
+         \frac{(n-x)a^2e^{-ax}}{(1-e^{-ax})^2}.
+ \label{eq:2der}
+\end{equation}
+Taylor's formula with integral remainder gives, for every $k$,
+\begin{equation}
+ 2\log b_k-\log b_{k-1}-\log b_{k+1}=\int_{-1}^{1}(1-|y|)\,\big(-f''(k+y)\big)\,dy .
+ \label{eq:triangle}
+\end{equation}
+For $s+1\le k\le K$ and $|y|\le1$ we have $n-k-y\ge n/2$ and $e^{-a(k+y)}\ge q^{k+1}\ge\epsilon q^k$, so $-f''(k+y)\ge\frac\epsilon2a^2nq^k$, and since $\int_{-1}^1(1-|y|)dy=1$,
+\begin{equation}
+ 2\log b_k-\log b_{k-1}-\log b_{k+1}\ge\tfrac\epsilon2a^2nq^k\qquad(s+1\le k\le K).
+ \label{eq:curvature}
+\end{equation}
+At $k=s+1$ the right side is $\Omega(a^2\cdot L^2/a)=\Omega(pL^2)$ by Lemma~\ref{lem:cutoff}. At $k\le K$ it is at least $\frac{\epsilon^2}2a^2n^{-\eta}$, because $nq^K\ge q\,n^{-\eta}$. Since $a\ge p\ge L^{-C}$, this is much larger than $n^{-1/8}$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} for $k\le K$]
+Since $pL^2\to\infty$, the standing assumptions hold with $C=2$. Take $H=\min\{L,(pL^2)^{3/4}\}$ and work on the event of Lemma~\ref{lem:cutoff}. For $s+2\le k\le K$ the three indices $k-1,k,k+1$ lie in $[s+1,K+1]$, so $\log R_j=\log b_j+O(n^{-1/8})$ for each of them, and \eqref{eq:curvature} gives \eqref{eq:ulc} with strict inequality. At $k=s+1$: if $R_s=0$, strictness follows from $R_{s+1}>0$; otherwise $\log R_s\le\log b_s+H$, and since $H=o(pL^2)$ the curvature $\Omega(pL^2)$ again gives strict inequality. At $k=s$ we have $R_{s-1}=0$, so \eqref{eq:ulc} holds, strictly exactly when $R_s>0$. For $k<s$ both sides vanish. On this event $\gamma\in\{s,s+1\}$, so \eqref{eq:ulc} is strict exactly for $\gamma\le k\le K$ in this range.
+\end{proof}
+
+\section{A deterministic inequality for the upper range}\label{sec:tail}
+This section proves a deterministic second-difference inequality, uses it to finish the proof of Theorem~\ref{thm:main} for $k\ge K$, where almost every $k$-set dominates, and then proves Corollary~\ref{cor:unlabelled}.
+
+Let $B_1,\dots,B_m\subseteq[n]$. Let $S_k$ be a uniformly random $k$-subset of $[n]$ and put $c_k=\PP(S_k\subseteq B_i\text{ for some }i)$. For $0\le b\le n$ define
+\[
+ \phi_b(j)=\binom bj\Big/\binom nj,\qquad \Sigma_j=\sum_i\phi_{|B_i|}(j),\qquad
+ \Pi_j=\sum_{i<i'}\phi_{|B_i\cap B_{i'}|}(j),
+\]
+with $\binom bj=0$ for $j>b$. So $\phi_b(j)$ is the probability that $S_j$ lies inside a fixed set of size $b$. Let $d=\min_i(n-|B_i|)$ and suppose $|B_i\cap B_{i'}|\le \rho|B_i|$ for all $i\ne i'$, with $0\le\rho<1$.
+\begin{lemma}\label{lem:tail}
+For $2\le k<n$,
+\[
+ c_{k-1}-2c_k+c_{k+1}\ \ge\ \Sigma_{k-1}
+ \left(\frac{d(d-1)}{n(n-1)}-(m-1)\rho^{k-1}\right).
+\]
+\end{lemma}
+\begin{proof}
+First, for a single set of size $b$,
+\begin{equation}
+ \phi_b(k-1)-2\phi_b(k)+\phi_b(k+1)
+ =\phi_b(k-1)\frac{(n-b)(n-b-1)}{(n-k+1)(n-k)} .
+ \label{eq:hyper}
+\end{equation}
+To see this, draw the elements of $[n]$ in uniformly random order. By exchangeability the left side is the probability that the first $k-1$ draws lie in the set and the next two do not, which is the right side. Both sides vanish when $k-1>b$.
+
+The Bonferroni inequalities give $\Sigma_j-\Pi_j\le c_j\le \Sigma_j$. Hence the second difference is at least $\Sigma_{k-1}-2\Sigma_k+\Sigma_{k+1}-\Pi_{k-1}-\Pi_{k+1}$. If $|B_i\cap B_{i'}|\le\rho|B_i|$ then $\phi_{|B_i\cap B_{i'}|}(j)\le\rho^j\phi_{|B_i|}(j)$, because $(x)_j/(y)_j\le(x/y)^j$ for $x\le y$; this also holds when the left side vanishes. Summing over ordered pairs gives $2\Pi_j\le(m-1)\rho^j\Sigma_j$. Since $\phi_b(j)$ is nonincreasing in $j$, $\Pi_{k+1}\le \Pi_{k-1}$. Finally apply \eqref{eq:hyper} to each $B_i$ and use $n-|B_i|\ge d$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} for $k\ge K$]
+For a graph $G$ take $m=n$ and $B_v=[n]\setminus N[v]$. A set fails to dominate exactly when it misses some closed neighbourhood, that is, lies inside some $B_v$; so $c_k=1-R_k$. In $G(n,p)$, $|B_v|\sim\operatorname{Bin}(n-1,q)$, and for $v\ne w$, $|B_v\cap B_w|\sim\operatorname{Bin}(n-2,q^2)$, since each other vertex lies in both sets exactly when it is adjacent to neither. Hoeffding's inequality with deviation $2\sqrt{nL}$ and a union bound over the $O(n^2)$ variables show that, with probability $1-O(n^{-2})$, simultaneously
+\[
+ |B_v|=qn+O(\sqrt{nL}),\qquad |B_v\cap B_w|=q^2n+O(\sqrt{nL}).
+\]
+On this event, since $p\ge L^{-C}$ and $q\ge\epsilon$, we have $d\ge pn/2$ and may take $\rho=q+O(\sqrt{L/n})<1$. For $k\ge K$,
+\[
+ (n-1)\rho^{k-1}\le n\rho^{K-1}
+ \le nq^{K-1}\exp\{O(K\sqrt{L/n})\}=O(n^{-\eta})=o(p^2),
+\]
+so the bracket in Lemma~\ref{lem:tail} is positive. Hence $2R_k\ge R_{k-1}+R_{k+1}$ for $K\le k<n$, strictly when $\Sigma_{k-1}>0$, and the arithmetic--geometric mean inequality gives \eqref{eq:ulc}, strictly in the same cases. Now $\Sigma_{k-1}>0$ exactly when $k-1\le\max_v|B_v|=n-1-\delta$. For $k>n-\delta$ all three of $R_{k-1},R_k,R_{k+1}$ equal one and \eqref{eq:ulc} is an equality. Whp $n-\delta=pn+O(\sqrt{nL})>K$.
+
+Combining with Section~\ref{sec:onset}, whp \eqref{eq:ulc} holds for all $1\le k<n$, strictly exactly for $\gamma\le k\le n-\delta$. For the counts, $X_k=\binom nkR_k$ and the binomial coefficients satisfy $\binom nk^2>\binom n{k-1}\binom n{k+1}$; for $\gamma<k<n$ we have $R_k>0$, so $X_k^2>\binom n{k-1}\binom n{k+1}R_k^2\ge X_{k-1}X_{k+1}$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:unlabelled}]
+Ultra-log-concavity is invariant under isomorphism. Let $N=\binom n2$ and let $\mathcal F$ be the set of labelled graphs on $[n]$ whose domination polynomial is not ultra-log-concave; by Theorem~\ref{thm:main} at $p=1/2$, $|\mathcal F|=o(2^N)$. Every isomorphism class has at most $n!$ members, so there are at least $2^N/n!$ classes. A class whose graphs have trivial automorphism group has exactly $n!$ members, so at most $|\mathcal F|/n!=o(2^N/n!)$ such classes meet $\mathcal F$. It remains to show that $o(2^N/n!)$ classes have a nontrivial automorphism. Let $\mathrm{Fix}(\sigma)$ be the set of labelled graphs fixed by a permutation $\sigma$ of $[n]$. Then $\sum_{\sigma\ne\mathrm{id}}|\mathrm{Fix}(\sigma)|=\sum_G(|\mathrm{Aut}(G)|-1)$, and a class with $|\mathrm{Aut}|\ge2$ contributes $(n!/|\mathrm{Aut}|)(|\mathrm{Aut}|-1)\ge n!/2$ to this sum. So the number of such classes is at most $(2/n!)\sum_{\sigma\ne\mathrm{id}}|\mathrm{Fix}(\sigma)|$. A graph fixed by $\sigma$ is a union of orbits of $\sigma$ on pairs, so $|\mathrm{Fix}(\sigma)|=2^{c(\sigma)}$, where $c(\sigma)$ is the number of such orbits. If $\sigma$ moves $m\ge2$ vertices, a pair is fixed by $\sigma$ only if both ends are fixed or $\sigma$ swaps them, so at least $m(n-m)+\binom m2-m/2\ge m(n-2)/2$ pairs lie in orbits of size at least two, and $c(\sigma)\le N-m(n-2)/4$. At most $n^m$ permutations move exactly $m$ vertices, so
+\[
+ \sum_{\sigma\ne\mathrm{id}}|\mathrm{Fix}(\sigma)|\le2^N\sum_{m\ge2}\big(n2^{-(n-2)/4}\big)^m=o(2^N).
+\]
+Hence all but $o(2^N/n!)$ classes have ultra-log-concave domination polynomials, and the number of classes is at least $2^N/n!$.
+\end{proof}
+
+\section{The boundary scale}\label{sec:boundary}
+This section proves Theorem~\ref{thm:obstruction}, then a general description for densities with $pL^2\to\theta\in(0,\infty)$ (Proposition~\ref{prop:general}), from which Theorem~\ref{thm:natural} follows.
+
+In every case below the only comparison that can fail with positive probability is the one centred at the second nonzero coefficient. If $r$ denotes the first index whose count can be nonzero, inequality \eqref{eq:ulc} at $r+1$ reads $X_r\le T_r$, where
+\begin{equation}
+ T_r=\binom nr\frac{R_{r+1}^2}{R_{r+2}},\qquad
+ T'_r=\frac{X_{r+1}^2}{X_{r+2}}=T_r\Big(1+\frac1{r+1}\Big)\Big(1+\frac1{n-r-1}\Big),
+ \label{eq:test}
+\end{equation}
+and ordinary log-concavity at $r+1$ reads $X_r\le T'_r$. The factor relating the two thresholds is $\binom n{r+1}^2/(\binom nr\binom n{r+2})$. Write
+\[
+ C_r=2\log b_{r+1}-\log b_r-\log b_{r+2}
+\]
+for the curvature of the mean profile at $r+1$. If $R_j=b_j(1+O(n^{-1/8}))$ for $j=r+1,r+2$, then $T_r=\mu_re^{C_r}(1+O(n^{-1/8}))$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:obstruction}]
+For large $n$ define $p$ by
+\begin{equation}
+ u:=q^r=1-\left(\frac{\lambda}{\binom nr}\right)^{1/(n-r)},
+ \qquad p=1-u^{1/r}.
+ \label{eq:tune}
+\end{equation}
+This is the unique density with $\mu_r=\lambda$, since $\mu_r$ is continuous and strictly increasing in $p$. Let $\tau=nu$. Since $\log\binom nr\sim rL$ and $r$ is polylogarithmic, $\tau\sim rL$, $ar=-\log u\sim L$ and $p\sim a\sim L/r$. Consequently $pL^2\to\theta$ and $a^2\tau\to\theta$. These densities satisfy $L^{-4}\le p\le1/2$ for large $n$, so Sections~\ref{sec:pairs}--\ref{sec:tail} apply with $C=4$, $\epsilon=1/2$, and Corollary~\ref{cor:poisson} gives $X_r\Rightarrow\Pois(\lambda)$.
+
+By \eqref{eq:jump}, $\log(b_{k+1}/b_k)\ge cL^2$ at $k=r-1$ and $k=r$, since $p\tau\sim L^2$. The binomial coefficients also increase there, so $\mu_{r-1}\to0$ and $\mu_{r+1}\ge e^{c'L^2}$. By Markov's inequality, whp $X_{r-1}=0$, hence all earlier counts vanish. As in Lemma~\ref{lem:cutoff}, Lemma~\ref{lem:pairs} and Chebyshev's inequality give $|R_k/b_k-1|\le n^{-1/8}$ for all $r+1\le k\le K+1$ whp; note $r<K$ because $ar\sim L$. The curvature bound \eqref{eq:curvature} holds on $[r+1,K]$ with $r$ in place of $s$, and its minimum there is $\Omega(a^2n^{-\eta})\gg n^{-1/8}$. Hence whp every comparison centred at $r+2\le k\le K$ holds strictly. Section~\ref{sec:tail} gives all comparisons at $k\ge K$, and those at $k\le r$ hold because $X_{r-1}=0$.
+
+It remains to analyse the comparison at $r+1$. On $[r,r+2]$ formula \eqref{eq:2der} gives $-f''(x)=(1+o(1))a^2\tau$, because $q^x/q^r=1+o(1)$, $n-x\sim n$, $q^x=o(1)$ and $an\to\infty$. By \eqref{eq:triangle}, $C_r\to\theta$. Whp $R_{r+2}>0$, and by \eqref{eq:test} both $T_r$ and $T'_r$ tend to $\lambda e^\theta$ in probability. If $\lambda e^\theta$ is not an integer, both thresholds lie whp strictly between the same two consecutive integers, and $\PP(X_r\le T_r)$ and $\PP(X_r\le T'_r)$ tend to $\PP\{\Pois(\lambda)<\lambda e^\theta\}$.
+
+If $\lambda e^\theta$ is an integer, the side from which the thresholds approach it matters. For $\theta>0$, Stirling's formula and $\log r=3\log L+O(1)$ give
+\[
+ \tau=r(L-3\log L+O(1)),\qquad ar=L-\log\tau=L-4\log L+O(1).
+\]
+Here $\tau=(1+O(rL/n))\frac{n}{n-r}\big(\log\binom nr-\log\lambda\big)$, so the error in linearising \eqref{eq:tune} is negligible. Since $L^3/r=\theta(1+O(L^{-3}))$,
+\[
+ a^2\tau=\frac{(ar)^2\tau}{r^2}=\theta\Big(1-\frac{11\log L}{L}+O(1/L)\Big),
+\]
+the coefficient $11$ being $2\times4$ from $(ar)^2$ plus $3$ from $\tau$. On $[r,r+2]$, formula \eqref{eq:2der} differs from $a^2\tau$ by a relative error $O(a+u+r/n+1/(an))=O(L^{-2})$, so $C_r=\theta-(11+o(1))\theta\log L/L$. The random relative error in $T_r$ is $O(n^{-1/8})$ and the factor relating $T'_r$ to $T_r$ is $1+O(1/r)=1+O(L^{-3})$. Both are negligible against $\log L/L$, so whp both thresholds lie strictly below the integer $\lambda e^\theta$ and above $\lambda e^\theta-1$. The limit is then $\PP\{\Pois(\lambda)\le\lambda e^\theta-1\}=\PP\{\Pois(\lambda)<\lambda e^\theta\}$. For $\theta=0$ we have $r\sim L^4$, so $a^2\tau\sim L^3/r\sim1/L$ and $C_r\sim1/L\gg n^{-1/8}$. Both thresholds then lie whp strictly between $\lambda$ and $\lambda+1$, and the limit is $\PP\{\Pois(\lambda)\le\lambda\}$. This proves the first assertion.
+
+For the second assertion, let $m=\lambda e^\theta\in\mathbb N$. Replace $\lambda$ in \eqref{eq:tune} by a parameter $v$, and write $B_n(v)=\binom nrb_{r+1}^2/b_{r+2}=ve^{C_r(v)}$ for the resulting deterministic threshold. The map $v\mapsto B_n(v)$ is continuous, and $B_n(v)=v(e^\theta+o(1))$ uniformly for $v\in[\lambda/2,2\lambda]$: in the estimates above, $v$ enters only through the bounded summand $-\log v$ in $\log\binom nr-\log v$. By the intermediate value theorem there is $v_n$ in this interval with $B_n(v_n)=m(1-1/(2r))$, and $v_n\to\lambda$. Using $v_n$ in \eqref{eq:tune} keeps $pL^2\to\theta$, and Corollary~\ref{cor:poisson} still gives $X_r\Rightarrow\Pois(\lambda)$. Whp $T_r=m(1-1/(2r))(1+O(n^{-1/8}))<m$ and, by \eqref{eq:test}, $T'_r=m(1+1/(2r)+O(r^{-2}))>m$, both within distance one of $m$; here $1/r\gg n^{-1/8}$. All other comparisons hold whp, as before. Hence, up to an event of vanishing probability, $D_G$ is log-concave but not ultra-log-concave exactly when $X_r=m$, which has limiting probability $e^{-\lambda}\lambda^m/m!$. The case $\theta=0$, where $m=\lambda$, is included.
+\end{proof}
+
+For an arbitrary density sequence at a finite positive scale the same argument applies at the cutoff index of Lemma~\ref{lem:cutoff} with $H=\sqrt L$. We record a quantitative form.
+
+\begin{proposition}\label{prop:general}
+Suppose $pL^2\to\theta\in(0,\infty)$, and let $s=\min\{k:\mu_k\ge e^{-\sqrt L}\}$. Put $\psi(M)=e^{-M}\{1+2(e^{\theta/2}-1)^{-2}\}$. There are $\omega_n\to0$ such that:
+\begin{enumerate}[label=(\alph*)]
+\item for every $M>0$ and every $n$ with $|\log\mu_s|\ge M$,
+ $\PP(D_G\text{ is not ultra-log-concave})\le\psi(M)+\omega_n$;
+\item if $\mu_s\to\lambda\in(0,\infty)$ along a sequence of $n$ and $\lambda e^\theta\notin\mathbb Z$, then along that sequence $\PP(D_G\text{ is log-concave})$ and $\PP(D_G\text{ is ultra-log-concave})$ both tend to $\PP\{\Pois(\lambda)<\lambda e^\theta\}$.
+\end{enumerate}
+\end{proposition}
+Since ultra-log-concavity implies log-concavity, (a) also bounds the probability that $D_G$ is not log-concave.
+\begin{proof}
+Here $p\to0$, so the standing assumptions hold with $C=3$ and any $\epsilon<1$, and Lemma~\ref{lem:cutoff} applies with $H=\sqrt L$. As $q\to1$ it gives $nq^s\sim L^2/a$, and by \eqref{eq:2der} and \eqref{eq:triangle}, $C_s=(1+o(1))a^2nq^s=(1+o(1))aL^2\to\theta$. Let $E_n$ be the intersection of the event of Lemma~\ref{lem:cutoff}, the event of Section~\ref{sec:tail}, and the event $R_{s+2}>0$. Then $\PP(E_n^c)\to0$, and on $E_n$: every comparison other than the one centred at $s+1$ holds (for $k\le s$ because $X_{s-1}=0$; for $s+2\le k\le K$ because the curvature there is at least $\frac\epsilon2a^2nq^{k}\ge\frac\epsilon2a^2n^{-\eta}\gg n^{-1/8}$; for $k\ge K$ by Section~\ref{sec:tail}); and, by \eqref{eq:test}, $\mu_se^{\theta/2}\le T_s\le T'_s\le\mu_se^{2\theta}$ for large $n$.
+
+(a) On $E_n$, ultra-log-concavity can fail only if $X_s>T_s\ge\mu_se^{\theta/2}$. If $\log\mu_s\le-M$, Markov's inequality bounds the probability of $X_s\ge1$ by $\mu_s\le e^{-M}$. If $\log\mu_s\ge M$, Chebyshev's inequality and Lemma~\ref{lem:pairs} give
+\[
+ \PP(X_s>\mu_se^{\theta/2})\le\frac{\Var X_s}{(e^{\theta/2}-1)^2\mu_s^2}\le\frac{2e^{-M}+L^{O(1)}n^{-1/2}}{(e^{\theta/2}-1)^2}.
+\]
+Lemma~\ref{lem:pairs} applies at $k=s$ because $s\asymp L/a$ and $nq^s=O(sL)$.
+
+(b) Corollary~\ref{cor:poisson} gives $X_s\Rightarrow\Pois(\lambda)$, while $T_s$ and $T'_s$ tend to $\lambda e^\theta$ in probability. As $\lambda e^\theta$ is not an integer, $\PP(X_s\le T_s)$ and $\PP(X_s\le T'_s)$ tend to $\PP\{\Pois(\lambda)<\lambda e^\theta\}$, and all other comparisons hold whp.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:natural}]
+Throughout the proof $n$ ranges over integers with $(\log n)^2>2\theta$, so that $q_n=1-\theta/(\log n)^2\in(1/2,1)$ increases with $n$. Define $F_k(n)=\log\mu_k=\log\binom nk+(n-k)\log(1-q_n^k)$, and let $s(n)$ be the index of Proposition~\ref{prop:general}. By Lemma~\ref{lem:cutoff}, $s(n)\sim L/a\sim L^3/\theta$; so for large $x$ and $n\in[x,2x]$, $s(n)$ lies in $I_x=[\ell_x^3/(2\theta),\,2(\ell_x+1)^3/\theta]$ with $\ell_x=\log x$.
+
+\emph{Step 1: monotonicity in $n$.} Fix $k$ with $k\le\sqrt n$. Because $q_{n+1}\ge q_n$,
+\[
+ F_k(n+1)-F_k(n)=\log\frac{n+1}{n+1-k}+\log(1-q_{n+1}^k)+(n-k)\log\frac{1-q_{n+1}^k}{1-q_n^k}
+ \le\frac{2k}n-q_n^k .
+\]
+Let $A_k=\{n:nq_n^k\ge4k\}$. Since $nq_n^k$ increases with $n$, $A_k$ consists of all integers from some point on, and $F_k$ decreases on $A_k$ by at least $q_n^k/2$ per step. If $n\notin A_k$ then $q_n^k\le 4k/n\le1/2$ and, using $\log(1-z)\ge-2z$ for $z\le1/2$, $F_k(n)\ge k\log(n/k)-8k$, which exceeds any fixed $M+1$ when $k\in I_x$ and $n\in[x,2x]$ is large. Hence for each $M$ and each $k\in I_x$ the set $\{n\in[x,2x]:|F_k(n)|<M\}$ is a set of consecutive integers on which $F_k$ decreases.
+
+\emph{Step 2: step sizes.} If $|F_k(n)|\le M+1$ then $(n-k)\{-\log(1-q_n^k)\}=\log\binom nk-F_k(n)\ge kL/4$, so $q_n^k\ge kL/(8n)$, and each step decreases $F_k$ by at least $kL/(16n)$. In the other direction, $|\log\frac{1-q_{n+1}^k}{1-q_n^k}|\le 2kq_{n+1}^{k}(q_{n+1}-q_n)/q_{n+1}$ and $q_{n+1}-q_n\le 2\theta/(nL^3)$, while $(n-k)q_n^k\le 2kL$ in this range. So each step changes $F_k$ by $O(k/n+kL/n+k^2/(nL^2))=O(L^4/n)\to0$.
+
+\emph{Step 3: part (i).} Fix $M$. By Steps 1 and 2, for $k\in I_x$ the number of $n\in[x,2x]$ with $|F_k(n)|<M$ is at most $1+2M\cdot16(2x)/(kL)$. Summing over the $O(\ell_x^3)$ indices in $I_x$, each at least $\ell_x^3/(2\theta)$, the set $\mathcal B_M=\{n:|\log\mu_{s(n)}|<M\}$ meets $[x,2x]$ in $O(Mx/\ell_x+\ell_x^3)=o(x)$ integers, so it has natural density zero. Since $\mathcal B_M$ increases with $M$, a diagonal choice of integers $x_1<x_2<\cdots$, with $|\mathcal B_j\cap[1,y]|\le y/j$ and $\omega_y\le1/j$ for $y\ge x_j$, yields the density-one set $\mathcal N=\mathbb N\setminus\bigcup_j(\mathcal B_j\cap[x_j,x_{j+1}))$; on $\mathcal N\cap[x_j,x_{j+1})$ Proposition~\ref{prop:general}(a) bounds the failure probability by $\psi(j)+1/j\to0$.
+
+\emph{Step 4: part (ii).} Fix $\lambda>0$ with $\lambda e^\theta\notin\mathbb Z$. For large $k$, $F_k(n)\le k\log n-(n-k)q_n^k\to-\infty$ as $n\to\infty$. Let $n_0$ be the first element of $A_k$. Membership gives $\theta k/(\log n_0)^2\le(1+o(1))\log(n_0/4k)$, so $\log n_0\ge(\theta k/2)^{1/3}$ and $k\le\sqrt{n_0}$; and since $nq_n^k$ grows by a factor $1+o(1)$ per step, $n_0q_{n_0}^k\le5k$. As in Step~1, $F_k(n_0)\ge k\log(n_0/k)-10k>\log\lambda$. Let $n_k$ be the last $n\in A_k$ with $F_k(n)\ge\log\lambda$. At $n=n_k$ we have $F_k\ge\log\lambda$, hence $(n-k)q^k\le2kL$, and $k=O(L^3)$ by the bound on $\log n_0$; so the upper step bound of Step~2 applies and gives $F_k(n_k)=\log\lambda+o(1)$ as $k\to\infty$. Then $(n_k-k)\{-\log(1-q^k)\}=\log\binom{n_k}k+O(1)=(1+o(1))kL$ at $n=n_k$, because $\log k\le3\log L$; so $ka=L-O(\log L)$ and $k\sim L^3/\theta$. By \eqref{eq:jump} and the monotonicity of the binomial coefficients, $F_{k-1}(n_k)\le F_k(n_k)-(n_k-k+1)pq^{k-1}\le\log\lambda+1-cL^2<-\sqrt L$, so $s(n_k)=k$ and $\mu_{s(n_k)}\to\lambda$. Proposition~\ref{prop:general}(b) applies along $(n_k)$.
+
+The final assertion follows from (i), and from (ii) with $\lambda<e^{-\theta}$.
+\end{proof}
+
+\section{A binomial bound for the size of a dominating set}\label{sec:convex}
+This section proves Corollary~\ref{cor:convex}. The implication from ultra-log-concavity to the binomial convex order is standard; compare Daly \cite[Theorem~4.2]{Daly}, who treats ultra-log-concave laws on $\{0,\dots,n\}$. We include the short argument because here the support is $\{\gamma,\dots,n\}$.
+
+\begin{proof}[Proof of Corollary~\ref{cor:convex}]
+Write $u_k=\PP(Y=k\mid G)$ and $v_k=\PP(Z=k)$. If $\bar y=1$ both laws are the point mass at $n$. Otherwise $0<\bar y<1$, and $u_k/v_k$ is a positive constant times $R_k\{z(1-\bar y)/\bar y\}^k$. On the event of Theorem~\ref{thm:main}, $(R_k)$ is positive and log-concave on $\{\gamma,\dots,n\}$, so the set $I=\{k:u_k\ge v_k\}$ is an interval of integers, and $u_k-v_k$ is nonnegative on $I$ and nonpositive outside it. The two laws have the same total mass and the same mean. Let $\Lambda$ be the affine function agreeing with $\Phi$ at the endpoints of $I$ (any supporting line of $\Phi$ at the point if $I$ is a single point). By convexity $\Phi-\Lambda\le0$ on $I$ and $\Phi-\Lambda\ge0$ outside $I$, so
+\[
+ \E[\Phi(Y)\mid G]-\E\Phi(Z)=\sum_k(u_k-v_k)\big(\Phi(k)-\Lambda(k)\big)\le0 .
+\]
+Taking $\Phi(x)=(x-n\bar y)^2$ gives the variance bound.
+\end{proof}
+
+\section{Finite computations, limitations and open problems}\label{sec:finite}
+This section compares the asymptotic results with exact counts for small graphs, states the limits of the results, and lists open problems.
+
+\paragraph{Finite computations.} Table~\ref{tab:finite} counts the labelled graphs on $[n]$ whose domination polynomial fails log-concavity or ultra-log-concavity, exhaustively for $n\le6$ and in $20{,}000$ independent samples of $G(n,1/2)$ for $7\le n\le18$ (fixed seed; script \texttt{code/finite\_n.py}). Ultra-log-concavity fails far more often than log-concavity at small $n$, its failure rate falls steadily with $n$, and almost every failing comparison sits at index $\gamma+1$, the index where the obstruction of Section~\ref{sec:boundary} acts and where Cameron's nine-vertex graph fails. Every failing comparison found lies within three of $\gamma$. At $n=5$ the five failures are at $\gamma+2$. Two sampled graphs, at $n=14$ and $n=16$, fail ordinary log-concavity, both at $\gamma+1$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrr}
+\toprule
+$n$ & method & graphs & LC failures & ULC failures & failures at $\gamma+1$\\
+\midrule
+5 & exhaustive & 1,024 & 0 & 5 & 0 of 5\\
+6 & exhaustive & 32,768 & 0 & 636 & 540 of 636\\
+7 & sampled & 20,000 & 0 & 191 & 173 of 191\\
+8 & sampled & 20,000 & 0 & 118 & 107 of 118\\
+9 & sampled & 20,000 & 0 & 102 & 93 of 102\\
+10 & sampled & 20,000 & 0 & 64 & 58 of 64\\
+12 & sampled & 20,000 & 0 & 40 & 38 of 40\\
+14 & sampled & 20,000 & 1 & 16 & 16 of 16\\
+16 & sampled & 20,000 & 1 & 13 & 12 of 13\\
+18 & sampled & 20,000 & 0 & 11 & 11 of 11\\
+\bottomrule
+\end{tabular}
+\caption{Failures of log-concavity (LC) of $(X_k)$ and of ultra-log-concavity (ULC) of $(R_k)$ in $G(n,1/2)$. Every failing graph found fails exactly one comparison; the last column counts those at index $\gamma+1$. For $n\le4$ there are no failures. The rows for odd $n\ge11$ are in \texttt{results/finite-n.json}.}
+\label{tab:finite}
+\end{table}
+
+\paragraph{Slow convergence.} The asymptotics at the boundary scale set in slowly. For the tuning of Theorem~\ref{thm:obstruction} with $\theta=1$, the curvature $C_r$ is $0.58$ at $\log n=100$ and $0.93$ at $\log n=1000$ (script \texttt{code/check\_tuning.py}); for $p=1/(\log n)^2$ at $\log n=60$ it is $0.60$ (script \texttt{code/natural\_density.py}). The same script illustrates Theorem~\ref{thm:natural}: near $\log n=60$, $\log\mu_{s(n)}$ decreases steadily in $n$, by about $1.9\times10^7$ per unit of $\log n$, and jumps up by about $2.2\times10^3$, roughly $0.61(\log n)^2$, each time $s$ increases. A window of fixed width around $\log\mu_s=0$ therefore occupies a vanishing proportion of $n$. None of these computations proves an asymptotic statement.
+
+\paragraph{Limitations.} The results are asymptotic. Theorem~\ref{thm:main} assumes $p\le1-\epsilon$; Theorems~\ref{thm:obstruction} and~\ref{thm:natural} concern polylogarithmic densities. The constants in the error terms are not made explicit, so the results give no specific value of $n$ beyond which the conclusions hold.
+
+\paragraph{Open problems.}
+\begin{enumerate}
+\item \emph{Dense graphs.} Does Theorem~\ref{thm:main} hold for every $p$ with $pL^2\to\infty$, including $p\to1$? When $q\to0$ the curvature at the onset is of order $nq^s$, which is large whenever $\mu_s$ is bounded, so no obstruction of the kind in Section~\ref{sec:boundary} is expected. However, our concentration estimate and the overlap condition $\rho<1$ of Lemma~\ref{lem:tail} use $q\ge\epsilon$, and new arguments are needed when the sets $B_v$ are small.
+\item \emph{Sparser graphs.} What happens when $pL^2\to0$, in particular for $p=n^{-c}$? Proposition~\ref{prop:general} relies on a curvature of order one at the onset; when the curvature tends to zero, the comparison at the second nonzero coefficient depends on finer fluctuations of the first count.
+\item \emph{Stronger properties.} Is the domination polynomial of $G(n,1/2)$ real-rooted with probability bounded away from zero?
+\end{enumerate}
+
+\section*{AI-use statement}
+This paper was prepared with substantial assistance from AI systems. The research, the proofs and the computations were produced with AI assistance and checked by internal AI-assisted review and by the scripts described in the paper. It has not been externally peer reviewed. The author line is ``Anonymous'' by the publisher's convention.
+
+\section*{Code and data}
+The scripts \texttt{verify.py} (exact mean formula and exhaustive tail-inequality checks), \texttt{audit\_checks.py} (exhaustive counts for $n\le6$, the hypergeometric identity \eqref{eq:hyper}, and integer-boundary thresholds at $n=2^{128},2^{512},2^{2048}$), \texttt{check\_tuning.py} (the tuning \eqref{eq:tune}), \texttt{finite\_n.py} (Table~\ref{tab:finite}) and \texttt{natural\_density.py} (the illustration above) accompany this paper with their recorded outputs. They are finite computations and do not certify the limit theorems.
+
+\begin{thebibliography}{99}
+\bibitem{AP} S. Alikhani and Y.-H. Peng, Introduction to domination polynomial of a graph. \emph{Ars Combin.} 114 (2014), 257--266. \url{https://arxiv.org/abs/0905.2251}
+\bibitem{EPpeaks} Anonymous, Domination polynomials with many peaks: counterexamples to the Alikhani--Peng conjecture and the minimum-degree scale for a central mode. Evidence Press, version 0.1.0-candidate (2026). \url{https://doi.org/10.5281/zenodo.24511988}
+\bibitem{BB} I. Beaton and J. I. Brown, On the unimodality of domination polynomials. \emph{Graphs Combin.} 38 (2022), article 90. \url{https://doi.org/10.1007/s00373-022-02487-x}
+\bibitem{BWZ} T. Bohman, L. Warnke and E. Zhu, Two-point concentration of the domination number of random graphs. Preprint (2024). \url{https://arxiv.org/abs/2401.10486}
+\bibitem{Cameron} B. R. K. Cameron, \emph{On the Roots of Independence Polynomials}. PhD thesis, Dalhousie University (2019), Section~6.5, pp.~96--97. \url{https://dalspace.library.dal.ca/server/api/core/bitstreams/c903bf10-142c-4ffe-965a-1927ad52197a/content}
+\bibitem{Daly} F. Daly, Negative dependence and stochastic orderings. \emph{ESAIM Probab. Stat.} 20 (2016), 45--65. \url{https://doi.org/10.1051/ps/2016002}
+\bibitem{DHP} A. Du, S. Heilman and G. Panova, Trees and graphs with non log-concave dominating set sequence via AI tools. Preprint (2026). \url{https://arxiv.org/abs/2605.02193}
+\bibitem{GZ} D. Galvin and Y. Zhang, The domination polynomial of powers of paths and cycles. Preprint (2024). \url{https://arxiv.org/abs/2408.12731}
+\bibitem{GLS} R. Glebov, A. Liebenau and T. Szab\'o, On the concentration of the domination number of the random graph. \emph{SIAM J. Discrete Math.} 29 (2015), 1186--1206. \url{https://doi.org/10.1137/12090054X}
+\bibitem{MPP} D. Mitsche, X. P\'erez-Gim\'enez and P. Pra{\l}at, The bondage number of random graphs. \emph{Electron. J. Combin.} 23(2) (2016), P2.13. \url{https://doi.org/10.37236/5180}
+\bibitem{Oboudi} M. R. Oboudi, The average domination polynomial of graphs is unimodal. \emph{Discrete Math. Lett.} 7 (2021), 86--89. \url{https://doi.org/10.47443/dml.2021.0075}
+\bibitem{Omar} M. Omar, New perspectives on the unimodality of domination polynomials. Preprint (2026). \url{https://arxiv.org/abs/2601.14494}
+\bibitem{Pralat} P. Pra{\l}at, When does a random graph have constant cop number? \emph{Australas. J. Combin.} 46 (2010), 285--296. \url{https://ajc.maths.uq.edu.au/pdf/46/ajc_v46_p285.pdf}
+\bibitem{Ross} N. Ross, Fundamentals of Stein's method. \emph{Probab. Surv.} 8 (2011), 210--293. \url{https://doi.org/10.1214/11-PS182}
+\bibitem{WG} B. Wieland and A. P. Godbole, On the domination number of a random graph. \emph{Electron. J. Combin.} 8(1) (2001), R37. \url{https://doi.org/10.37236/1581}
+\end{thebibliography}
+\end{document}

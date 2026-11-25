@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it using these metadata."
+type: software
+title: "When is the domination polynomial of a random graph ultra-log-concave?"
+abstract: "Unrefereed research candidate. In the random graph G(n,p) with p <= 1 - epsilon and p(log n)^2 -> infinity, with probability tending to one the domination polynomial is ultra-log-concave, hence log-concave. At p = 1/2 this shows that almost all graphs, labelled or unlabelled, have a log-concave domination polynomial, answering a question of Cameron. The scale p(log n)^2 -> infinity is the right one for a guarantee valid along every density sequence: explicitly tuned densities with p(log n)^2 -> theta make log-concavity fail with an explicit Poisson probability. For p = theta/(log n)^2 the probability of log-concavity has no limit. A binomial convex-order bound for the size of a random dominating set follows."
+authors:
+  - name: "Anonymous"
+version: "0.1.0-candidate"
+date-released: "2026-11-25"
+doi: "10.5281/zenodo.24540957"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24540957"
+    description: "This version"
+  - type: doi
+    value: "10.5281/zenodo.24540956"
+    description: "All versions (concept DOI)"
+repository-code: "https://github.com/ipitchford/random-graph-domination-ultra-log-concavity"
+url: "https://evidencepress.org/releases/random-graph-domination-ultra-log-concavity/"
+license: CC0-1.0
+keywords:
+  - domination polynomial
+  - random graphs
+  - log-concavity
+  - ultra-log-concavity
+  - Poisson approximation
+preferred-citation:
+  type: article
+  title: "When is the domination polynomial of a random graph ultra-log-concave?"
+  authors:
+    - name: "Anonymous"
+  year: 2026
+  doi: "10.5281/zenodo.24540957"
+  publisher:
+    name: "Zenodo"
+  notes: "Version 0.1.0-candidate; unrefereed"
